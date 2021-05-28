@@ -1,0 +1,91 @@
+<style>
+    .count_controller {
+        display: flex;
+        justify-content: center;
+        flex-direction: row;
+    }
+    .count_controller {
+        font-size: 2rem;
+    }
+    .count_controller a {
+        color: #000;
+        transition: .3s ease;
+    }
+    .count_controller a:first-child:hover {
+        color: red;
+    }
+    .count_controller a:last-child:hover {
+        color: green;
+    }
+    .count_controller i:first-child {
+        margin-right: 1rem;
+    }
+    .count_controller i:last-child {
+        margin-left: 1rem;
+    }
+    .card {
+        width: 25vw;
+        margin-bottom: 5vw
+    }
+
+    a[id^="submit_"] {
+        display: flex;
+        justify-content: center;
+        margin-top: 1rem;
+    }
+    a[id^="submit_"] button {
+        width: 100%;
+    }
+
+    @media (max-width: 992px) {
+        .card {
+            width: 70vw;
+            margin-bottom: 5vw
+        }
+    }
+</style>
+<div class="row d-flex justify-content-center">
+    <div class="col-lg-6 col-md-12 d-flex justify-content-center">
+        <div class="card">
+            <img src="https://statustool.die-etagen.de/pictures/bernd_kruessel.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h1>Bernd</h1>
+                <div class="count_controller">
+                    <a id="count-remove-bernd">
+                        <i class="fas fa-minus"></i>
+                    </a>
+                    <span id="count_bernd">0</span>
+                    <a id="count-add-bernd">
+                        <i class="fas fa-plus"></i>
+                    </a>
+                </div>
+                <a id="submit_bernd">
+                    <button class="btn btn-success">Absenden</button>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-12 d-flex justify-content-center">
+        <div class="card">
+            <img src="https://statustool.die-etagen.de/pictures/joel_schwegmann.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h1>Joel</h1>
+                <div class="count_controller">
+                    <a id="count-remove-joel">
+                        <i class="fas fa-minus"></i>
+                    </a>
+                    <span id="count_joel">0</span>
+                    <a id="count-add-joel">
+                        <i class="fas fa-plus"></i>
+                    </a>
+                </div>
+                <a id="submit_joel">
+                    <button class="btn btn-success">Absenden</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <canvas id="statChart" width="100vw" height="50vh"></canvas>
+</div>

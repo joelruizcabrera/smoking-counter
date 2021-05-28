@@ -1,0 +1,22 @@
+{
+    "count_smoke": [
+        {
+            "name": "bernd",
+            "counting": [
+                {
+                    "date": "28:05:2021",
+                    "count": "2"
+                }
+            ]
+        },
+        {
+            "name": "joel",
+            "counting": [
+                {
+                    "date": "28:05:2021",
+                    "count": "2"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,initial-scale=1,user-scalable=yes">
+    <meta charset="utf-8">
+    <title>{{pageTitle}}</title>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+</head>
+<body>
+{{{body}}}
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.3.0/dist/chart.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+
+    $.getJSON( "/data/count.json", function( data ) {
+        $.each( data, function( key, val ) {
+            const labelArr = [];
+
+            const berndData = [];
+            const joelData = [];
+            for (let i = 0; i < data.count_smoke[1].counting.length; i++) {
+                labelArr.push(data.count_smoke[1].counting[i].date)
+                joelData.push(data.count_smoke[1].counting[i].count)
+            }
+            for (let i = 0; i < data.count_smoke[0].counting.length; i++) {
+                berndData.push(data.count_smoke[0].counting[i].count)
+            }
+            var ctx = document.getElementById('statChart').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labelArr,
+                    datasets: [
+                        {
+                            label: 'Joel',
+                            data: joelData,
+                            backgroundColor: "rgba(98,75,134,0.5)",
+                            borderColor: "rgb(98,75,134)",
+                            tension: 0.15,
+                            fill: true
+                        },
+                        {
+                            label: 'Bernd',
+                            data: berndData,
+                            backgroundColor: "rgba(54,225,155,0.5)",
+                            borderColor: "rgb(54,225,155)",
+                            tension: 0.15,
+                            fill: true
+                        }
+                    ]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        });
+    });
+
+    $.getJSON( "/data/count.json", function( data ) {
+        $.each( data, function( key, val ) {
+            console.log(data.count_smoke)
+            $('#count_joel').text(data.count_smoke[1].counting[data.count_smoke[1].counting.length - 1].count)
+            $('#count_bernd').text(data.count_smoke[0].counting[data.count_smoke[0].counting.length - 1].count)
+        });
+    });
+    $('#count-add-joel').click(() => {
+        $('#count_joel').text(parseInt($("#count_joel").text()) + 1)
+    })
+    $('#count-remove-joel').click(() => {
+        if (parseInt($('#count_joel').text()) === 0) {
+            return
+        } else {
+            $('#count_joel').text(parseInt($("#count_joel").text()) - 1)
+        }
+    })
+
+    $('#count-add-bernd').click(() => {
+        $('#count_bernd').text(parseInt($("#count_bernd").text()) + 1)
+    })
+    $('#count-remove-bernd').click(() => {
+        if (parseInt($('#count_bernd').text()) === 0) {
+            return
+        } else {
+            $('#count_bernd').text(parseInt($("#count_bernd").text()) - 1)
+        }
+    })
+
+
+    $('#submit_joel').click(() => {
+        window.location.href = "/post?name=joel&newCount=" + $("#count_joel").text();
+    })
+
+    $('#submit_bernd').click(() => {
+        window.location.href = "/post?name=bernd&newCount=" + $("#count_bernd").text();
+    })
+</script>
+</body>
+</html>

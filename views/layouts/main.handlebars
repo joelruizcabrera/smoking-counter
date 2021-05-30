@@ -29,6 +29,27 @@
             for (let i = 0; i < data.count_smoke[0].counting.length; i++) {
                 berndData.push(data.count_smoke[0].counting[i].count)
             }
+
+            var sumJoel = 0;
+            for( var i = 0; i < joelData.length; i++ ){
+                sumJoel += parseInt( joelData[i], 10 ); //don't forget to add the base
+            }
+
+            var avgJoel = sumJoel/joelData.length;
+            $("#average_joel").text(avgJoel.toFixed(2));
+
+            var sumBernd = 0;
+            for( var i = 0; i < berndData.length; i++ ){
+                sumBernd += parseInt( berndData[i], 10 ); //don't forget to add the base
+            }
+
+            var avgBernd = sumBernd/berndData.length;
+            $("#average_bernd").text(avgBernd.toFixed(2));
+
+            $('#perc_joel').text(relDiff(joelData[joelData.length - 1], joelData[joelData.length - 2], '#perc_joel'))
+
+            $('#perc_bernd').text(relDiff(berndData[berndData.length - 1], berndData[berndData.length - 2], '#perc_bernd'))
+
             var ctx = document.getElementById('statChart').getContext('2d');
             var myChart = new Chart(ctx, {
                 type: 'line',
@@ -66,7 +87,6 @@
 
     $.getJSON( "/data/count.json", function( data ) {
         $.each( data, function( key, val ) {
-            console.log(data.count_smoke)
             $('#count_joel').text(data.count_smoke[1].counting[data.count_smoke[1].counting.length - 1].count)
             $('#count_bernd').text(data.count_smoke[0].counting[data.count_smoke[0].counting.length - 1].count)
         });
@@ -101,6 +121,43 @@
     $('#submit_bernd').click(() => {
         window.location.href = "/post?name=bernd&newCount=" + $("#count_bernd").text();
     })
+
+    function relDiff(a, b, id) {
+        if (a >= b) {
+            var perc = (((a / b) * 100) - 100).toFixed(2);
+
+            var sign = perc > 0 ? 1 : perc == 0 ? 0 : -1;
+
+            if (sign == 1) {
+                $(id).addClass("positive")
+            }
+            else if (sign == 0){
+                $(id).addClass("neutral")
+            }
+            else if (sign == -1){
+                $(id).addClass("negative")
+            }
+
+            return perc + "%"
+        }
+        if (a < b) {
+            var perc = ((a / b) * 100) .toFixed(2);
+
+            var sign = perc > 0 ? 1 : perc == 0 ? 0 : -1;
+
+            if (sign == 1) {
+                $(id).addClass("positive")
+            }
+            else if (sign == 0){
+                $(id).addClass("neutral")
+            }
+            else if (sign == -1){
+                $(id).addClass("negative")
+            }
+
+            return perc + "%"
+        }
+    }
 </script>
 </body>
 </html>

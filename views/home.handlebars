@@ -37,6 +37,14 @@
         width: 100%;
     }
 
+    p[id^="perc_"].negative {
+        color: red;
+    }
+
+    p[id^="perc_"].positive {
+        color: green;
+    }
+
     @media (max-width: 992px) {
         .card {
             width: 70vw;
@@ -50,6 +58,10 @@
             <img src="https://statustool.die-etagen.de/pictures/bernd_kruessel.jpg" class="card-img-top" alt="...">
             <div class="card-body">
                 <h1>Bernd</h1>
+                <ul>
+                    <li><p id="perc_bernd"></p></li>
+                    <li><p><b>Ø</b> <span id="average_bernd"</p></li>
+                </ul>
                 <div class="count_controller">
                     <a id="count-remove-bernd">
                         <i class="fas fa-minus"></i>
@@ -70,6 +82,10 @@
             <img src="https://statustool.die-etagen.de/pictures/joel_schwegmann.jpg" class="card-img-top" alt="...">
             <div class="card-body">
                 <h1>Joel</h1>
+                <ul>
+                    <li><p id="perc_joel"></p></li>
+                    <li><p><b>Ø</b> <span id="average_joel"</p></li>
+                </ul>
                 <div class="count_controller">
                     <a id="count-remove-joel">
                         <i class="fas fa-minus"></i>
